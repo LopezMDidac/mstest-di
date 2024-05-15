@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mstest_with_DI.InjectableDependencies;
+namespace mstest_di.InjectableDependencies;
 
 public interface IDependencyB
 {

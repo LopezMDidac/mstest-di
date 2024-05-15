@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mstest_with_DI.InjectableDependencies;
+namespace mstest_di.InjectableDependencies;
 
 public interface IDependencyA
 {
@@ -27,6 +27,29 @@ public class SingletonDependencyA : IDependencyA
     }
 
     public string Name => "DependencyA";
+
+    public void DoStuff()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Guid GetId()
+    {
+        return _id;
+    }
+}
+
+public class SingletonDependencyAA : IDependencyA
+{
+    private readonly Guid _id;
+
+    public SingletonDependencyAA()
+    {
+        _id = Guid.NewGuid();
+
+    }
+
+    public string Name => "DependencyAA";
 
     public void DoStuff()
     {

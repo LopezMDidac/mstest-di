@@ -1,6 +1,6 @@
-using mstest_with_DI.InjectableDependencies;
+using mstest_di.InjectableDependencies;
 
-namespace mstest_with_DI.Tests;
+namespace mstest_di.Tests;
 
 
 

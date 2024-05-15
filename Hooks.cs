@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using mstest_with_DI.InjectableDependencies;
+using mstest_di.InjectableDependencies;
 
-namespace mstest_with_DI;
+namespace mstest_di;
 
 [TestClass]
 internal class Hooks
 {
     internal static ServiceProvider? serviceProvider;
-
     [AssemblyInitialize]
     public static void AssemblyInitialize(TestContext _)
     {

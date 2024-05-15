@@ -8,55 +8,66 @@ namespace mstest_di.Tests;
 
 
 [TestClass]
-public class TestDependencyInjection
+public class TestDependencyInjectionGlobalLocal
 {
-    [TestMethodDI]
-    public void TestDISingleDependencyA(IDependencyA myDependency)
+    public static IServiceCollection? serviceCollection;
+
+    [ClassInitialize]
+    public static void BuildServiceProvider(TestContext _)
     {
-        Assert.AreEqual("DependencyA", myDependency.Name);
+        serviceCollection = new ServiceCollection();
+        serviceCollection.AddTransient(typeof(TransientDependencyC));
+        serviceCollection.AddTransient<IDependencyA,SingletonDependencyAA>();
     }
 
-    [TestMethodDI]
+
+    [TestMethodDIMultipleProviders]
+    public void TestDISingleDependencyA(IDependencyA myDependency)
+    {
+        Assert.AreEqual("DependencyAA", myDependency.Name);
+    }
+
+    [TestMethodDIMultipleProviders]
     public void TestDISingleDependencyB(IDependencyB myDependency)
     {
         Assert.AreEqual("DependencyB", myDependency.Name);
     }
 
-    [TestMethodDI]
+    [TestMethodDIMultipleProviders]
     public void TestDISingleDependencyC(IDependencyC myDependency)
     {
         Assert.AreEqual("DependencyC", myDependency.Name);
     }
 
-    [TestMethodDI]
+    [TestMethodDIMultipleProviders]
     public void TestUnsortedDependencies(IDependencyC myDependencyC, IDependencyA myDependencyA)
     {
         Assert.AreEqual("DependencyC", myDependencyC.Name);
-        Assert.AreEqual("DependencyA", myDependencyA.Name);
+        Assert.AreEqual("DependencyAA", myDependencyA.Name);
     }
 
-    [TestMethodDI]
+    [TestMethodDIMultipleProviders]
     public void TestAllDependencies(IDependencyA myDependencyA, IDependencyB myDependencyB, IDependencyC myDependencyC)
     {
         Assert.AreEqual("DependencyC", myDependencyC.Name);
-        Assert.AreEqual("DependencyA", myDependencyA.Name);
+        Assert.AreEqual("DependencyAA", myDependencyA.Name);
         Assert.AreEqual("DependencyB", myDependencyB.Name);
     }
 
-    [TestMethodDI]
+    [TestMethodDIMultipleProviders]
     public void TestNonRegisteredDependency(IDependencyD myDependency)
     {
         Assert.IsNull(myDependency);
     }
 
-    [TestMethodDI]
+    [TestMethodDIMultipleProviders]
     public void TestNoDI()
     {
         Assert.IsTrue(true);
     }
-    [TestMethodDI]
+    [TestMethodDIMultipleProviders]
     public void TestByType(TransientDependencyC mydependency)
     {
-        Assert.IsNull(mydependency);
+        Assert.IsNotNull(mydependency);
     }
 }
